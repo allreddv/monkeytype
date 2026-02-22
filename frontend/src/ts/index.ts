@@ -74,7 +74,7 @@ if (accepted === null) {
 }
 void init(onAuthStateChanged).then(() => {
   if (accepted !== null) {
-    Cookies.activateWhatsAccepted();
+    // Cookies.activateWhatsAccepted();
   }
 });
 

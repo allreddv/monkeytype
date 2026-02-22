@@ -66,6 +66,12 @@ export async function init(callback: ReadyCallback): Promise<void> {
     }
 
     readyCallback = callback;
+
+    // Check if we are using dummy keys or in dev mode to prevent SDK errors
+    if (isDevEnvironment() && firebaseConfig.apiKey === "dummy-key") {
+      throw new Error("Skipping Firebase init: Dummy configuration detected.");
+    }
+
     app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
     Auth = getAuth(app);
 
