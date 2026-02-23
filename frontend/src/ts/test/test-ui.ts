@@ -1726,12 +1726,13 @@ export function resetThreeStrikesUi(): void {
       display: "grid",
       gridTemplateColumns: "1fr auto 1fr",
       alignItems: "end",
+      width: "100%",
     });
     qs("#liveStatsMini")?.setStyle({
       marginTop: "0px",
       height: "auto",
-      width: "auto",
-      alignItems: "end",
+      width: "100%",
+      alignItems: "start",
     });
     updateThreeStrikesUi();
   }
