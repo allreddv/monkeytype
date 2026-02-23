@@ -863,7 +863,7 @@ export async function finish(difficultyFailed = false): Promise<void> {
   TestStats.incrementCompletedTestsSessionCount();
 
   if (!difficultyFailed && isFunboxActiveWithProperty("three_strikes")) {
-    ThreeStrikesStats.incrementCompletions();
+    ThreeStrikesStats.incrementStreak();
     TestUI.resetThreeStrikesUi();
   }
 
@@ -1368,6 +1368,10 @@ async function saveResult(
 
 export function fail(reason: string): void {
   failReason = reason;
+  if (isFunboxActiveWithProperty("three_strikes")) {
+    ThreeStrikesStats.resetCurrentStreak();
+    TestUI.resetThreeStrikesUi();
+  }
   // input.pushHistory();
   // corrected.pushHistory();
   TestInput.pushKeypressesToHistory();

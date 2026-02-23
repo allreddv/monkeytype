@@ -1787,8 +1787,8 @@ export function updateThreeStrikesUi(): void {
 
   const completed = qs(".threeStrikesCompleted");
   if (completed) {
-    const rounds = ThreeStrikesStats.getCompletions();
-    completed.setHtml(`${rounds} round${rounds === 1 ? "" : "s"}`);
+    const streak = ThreeStrikesStats.getStreak();
+    completed.setHtml(`rounds ${streak.current} / ${streak.best} best`);
   }
 }
 
