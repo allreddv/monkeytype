@@ -1655,7 +1655,7 @@ function updateLiveStatsOpacity(value: TimerOpacity): void {
     opacity: value,
   });
   qs("#liveStatsMini")?.setStyle({ opacity: value });
-  qs("#threeStrikesUi")?.setStyle({ opacity: value });
+  qs("#threeStrikesUi")?.setStyle({ opacity: "1" });
   qs("#threeStrikesCompletedWrapper")?.setStyle({ opacity: value });
 }
 
