@@ -1627,6 +1627,14 @@ function updateWordsWidth(): void {
 }
 
 function updateLiveStatsMargin(): void {
+  if (isFunboxActiveWithProperty("three_strikes")) {
+    qs("#liveStatsMini")?.setStyle({
+      justifyContent: "flex-start",
+      marginLeft: "0",
+    });
+    return;
+  }
+
   if (Config.tapeMode === "off") {
     qs("#liveStatsMini")?.setStyle({
       justifyContent: "start",
@@ -1711,12 +1719,16 @@ export function resetThreeStrikesUi(): void {
       display: "",
       gridTemplateColumns: "",
       alignItems: "",
+      gridColumn: "",
+      width: "",
     });
     qs("#liveStatsMini")?.setStyle({
       marginTop: "",
       height: "",
       width: "",
       alignItems: "",
+      justifyContent: "",
+      marginLeft: "",
     });
   } else {
     qs("#threeStrikesUi")?.removeClass("hidden");
@@ -1727,12 +1739,15 @@ export function resetThreeStrikesUi(): void {
       gridTemplateColumns: "1fr auto 1fr",
       alignItems: "end",
       width: "100%",
+      gridColumn: "full-width-padding",
     });
     qs("#liveStatsMini")?.setStyle({
       marginTop: "0px",
       height: "auto",
       width: "100%",
-      alignItems: "start",
+      alignItems: "flex-start",
+      justifyContent: "flex-start",
+      marginLeft: "0",
     });
     updateThreeStrikesUi();
   }
