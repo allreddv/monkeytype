@@ -177,6 +177,7 @@ export async function onInsertText(options: OnInsertTextParams): Promise<void> {
       if (timeSinceLastMistake > 2000) {
         TestState.setThreeStrikesCount(TestState.threeStrikesCount + 1);
         TestState.setThreeStrikesLastMistakeTime(performance.now());
+        TestUI.updateThreeStrikesUi();
       }
     }
   }

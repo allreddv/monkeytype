@@ -1683,6 +1683,41 @@ function updateLiveStatsColor(value: TimerColor): void {
   }
 }
 
+import * as ThreeStrikesStats from "./three-strikes-stats";
+
+export function resetThreeStrikesUi(): void {
+  const isThreeStrikes = isFunboxActiveWithProperty("three_strikes");
+  if (!isThreeStrikes) {
+    qs("#threeStrikesUi")?.addClass("hidden");
+    qs(".threeStrikesCompleted")?.addClass("hidden");
+  } else {
+    qs("#threeStrikesUi")?.removeClass("hidden");
+    qs(".threeStrikesCompleted")?.removeClass("hidden");
+    updateThreeStrikesUi();
+  }
+}
+
+export function updateThreeStrikesUi(): void {
+  const ui = qs("#threeStrikesUi");
+  if (!ui) return;
+  const count = TestState.threeStrikesCount;
+  let html = "";
+  for (let i = 0; i < 3; i++) {
+    if (i < count) {
+      html += `<i class="fas fa-times"></i>`;
+    } else {
+      html += `<i class="fas fa-times" style="opacity: 0.2"></i>`;
+    }
+  }
+  ui.setHtml(html);
+
+  const completed = qs(".threeStrikesCompleted");
+  if (completed) {
+    const rounds = ThreeStrikesStats.getCompletions();
+    completed.setHtml(`${rounds} round${rounds === 1 ? "" : "s"}`);
+  }
+}
+
 function showHideTestRestartButton(showHide: boolean): void {
   if (showHide) {
     qs(".pageTest #restartTestButton")?.removeClass("hidden");

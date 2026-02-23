@@ -58,6 +58,7 @@ import {
 import { getFunbox } from "@monkeytype/funbox";
 import * as CompositionState from "../states/composition";
 import { SnapshotResult } from "../constants/default-snapshot";
+import * as ThreeStrikesStats from "./three-strikes-stats";
 import { WordGenError } from "../utils/word-gen-error";
 import { tryCatch } from "@monkeytype/util/trycatch";
 import * as Sentry from "../sentry";
@@ -384,6 +385,7 @@ async function init(): Promise<boolean> {
 
   if (getActivePage() === "test") {
     await Funbox.activate();
+    TestUI.resetThreeStrikesUi();
   }
 
   if (Config.mode === "quote") {
@@ -859,6 +861,11 @@ export async function finish(difficultyFailed = false): Promise<void> {
 
   hideLoaderBar();
   TestStats.incrementCompletedTestsSessionCount();
+
+  if (!difficultyFailed && isFunboxActiveWithProperty("three_strikes")) {
+    ThreeStrikesStats.incrementCompletions();
+    TestUI.resetThreeStrikesUi();
+  }
 
   if (!TestState.isActive) return;
   TestUI.setResultCalculating(true);
