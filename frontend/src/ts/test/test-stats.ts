@@ -112,11 +112,16 @@ export function restart(): void {
 
 export let restartCount = 0;
 export let incompleteSeconds = 0;
+export let completedTestsSessionCount = 0;
 
 export let incompleteTests: IncompleteTest[] = [];
 
 export function incrementRestartCount(): void {
   restartCount++;
+}
+
+export function incrementCompletedTestsSessionCount(): void {
+  completedTestsSessionCount++;
 }
 
 export function incrementIncompleteSeconds(val: number): void {

@@ -39,8 +39,27 @@ export function setBailedOut(tf: boolean): void {
   bailedOut = tf;
 }
 
+export let threeStrikesCount = 0;
+export let threeStrikesLastMistakeTime = 0;
+export let testId = "";
+
+export function setThreeStrikesCount(count: number): void {
+  threeStrikesCount = count;
+}
+export function setThreeStrikesLastMistakeTime(time: number): void {
+  threeStrikesLastMistakeTime = time;
+}
+
 export function setSelectedQuoteId(id: number): void {
   selectedQuoteId = id;
+}
+
+export function reset(): void {
+  isActive = false;
+  activeWordIndex = 0;
+  testId = "";
+  threeStrikesCount = 0;
+  threeStrikesLastMistakeTime = 0;
 }
 
 export function setActiveWordIndex(index: number): void {

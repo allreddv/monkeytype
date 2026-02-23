@@ -170,6 +170,15 @@ export async function onInsertText(options: OnInsertTextParams): Promise<void> {
   if (!correct) {
     TestInput.incrementKeypressErrors();
     TestInput.pushMissedWord(TestWords.words.getCurrent());
+
+    if (isFunboxActiveWithProperty("three_strikes")) {
+      const timeSinceLastMistake =
+        performance.now() - TestState.threeStrikesLastMistakeTime;
+      if (timeSinceLastMistake > 2000) {
+        TestState.setThreeStrikesCount(TestState.threeStrikesCount + 1);
+        TestState.setThreeStrikesLastMistakeTime(performance.now());
+      }
+    }
   }
   if (Config.keymapMode === "react") {
     void KeymapEvent.flash(data, correct);
@@ -261,6 +270,11 @@ export async function onInsertText(options: OnInsertTextParams): Promise<void> {
       })
     ) {
       TestLogic.fail("difficulty");
+    } else if (
+      isFunboxActiveWithProperty("three_strikes") &&
+      TestState.threeStrikesCount >= 3
+    ) {
+      TestLogic.fail("three strikes");
     } else if (
       increasedWordIndex &&
       checkIfFailedDueToMinBurst({

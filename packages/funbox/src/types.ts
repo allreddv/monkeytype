@@ -22,7 +22,8 @@ export type FunboxProperty =
   | `toPush:${number}`
   | "wordOrder:reverse"
   | "reverseDirection"
-  | "ignoreReducedMotion";
+  | "ignoreReducedMotion"
+  | "three_strikes";
 
 type FunboxCSSModification = "typingTest" | "words" | "body" | "main";
 

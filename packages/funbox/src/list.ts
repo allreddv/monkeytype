@@ -482,6 +482,14 @@ const list: Record<FunboxName, FunboxMetadata> = {
     difficultyLevel: 0,
     name: "no_quit",
   },
+  three_strikes: {
+    name: "three_strikes",
+    description:
+      "Fail the test after 3 strikes (2 second cooldown between strikes).",
+    canGetPb: true,
+    difficultyLevel: 2,
+    properties: ["noInfiniteDuration", "three_strikes"],
+  },
 };
 
 export function getFunbox(name: FunboxName): FunboxMetadata;

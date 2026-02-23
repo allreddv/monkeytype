@@ -360,6 +360,8 @@ async function init(): Promise<boolean> {
   Replay.stopReplayRecording();
   TestWords.words.reset();
   TestState.setActiveWordIndex(0);
+  TestState.setThreeStrikesCount(0);
+  TestState.setThreeStrikesLastMistakeTime(0);
   TestInput.input.resetHistory();
   TestInput.input.current = "";
 
@@ -848,6 +850,16 @@ function buildCompletedEvent(
 }
 
 export async function finish(difficultyFailed = false): Promise<void> {
+  if (TestState.isRepeated) {
+    if (Date.now() - TestStats.start < 3000) {
+      restart({ nosave: true });
+      return;
+    }
+  }
+
+  hideLoaderBar();
+  TestStats.incrementCompletedTestsSessionCount();
+
   if (!TestState.isActive) return;
   TestUI.setResultCalculating(true);
   const now = performance.now();
