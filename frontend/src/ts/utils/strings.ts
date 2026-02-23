@@ -320,10 +320,16 @@ export function areCharactersVisuallyEqual(
 }
 
 export function toHex(buffer: ArrayBuffer): string {
-  if (Uint8Array.prototype.toHex !== undefined) {
-    return new Uint8Array(buffer).toHex();
+  const bytes = new Uint8Array(buffer);
+  const toHexFn = (
+    Uint8Array.prototype as Uint8Array & {
+      toHex?: () => string;
+    }
+  ).toHex;
+  if (toHexFn !== undefined) {
+    return toHexFn.call(bytes);
   }
-  const hashArray = Array.from(new Uint8Array(buffer));
+  const hashArray = Array.from(bytes);
   const hashHex = hashArray
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("");

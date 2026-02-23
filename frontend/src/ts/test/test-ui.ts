@@ -1729,6 +1729,15 @@ export function resetThreeStrikesUi(): void {
       alignItems: "",
       justifyContent: "",
       marginLeft: "",
+      fontSize: "",
+    });
+    qsa(
+      "#liveStatsMini .time, #liveStatsMini .speed, #liveStatsMini .acc, #liveStatsMini .burst",
+    ).setStyle({
+      fontSize: "",
+    });
+    qs(".threeStrikesCompleted")?.setStyle({
+      fontSize: "",
     });
   } else {
     qs("#threeStrikesUi")?.removeClass("hidden");
@@ -1748,6 +1757,15 @@ export function resetThreeStrikesUi(): void {
       alignItems: "flex-start",
       justifyContent: "flex-start",
       marginLeft: "0",
+      fontSize: "",
+    });
+    qsa(
+      "#liveStatsMini .time, #liveStatsMini .speed, #liveStatsMini .acc, #liveStatsMini .burst",
+    ).setStyle({
+      fontSize: "0.72em",
+    });
+    qs(".threeStrikesCompleted")?.setStyle({
+      fontSize: "0.65em",
     });
     updateThreeStrikesUi();
   }
