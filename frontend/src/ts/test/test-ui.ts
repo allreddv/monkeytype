@@ -1647,6 +1647,8 @@ function updateLiveStatsOpacity(value: TimerOpacity): void {
     opacity: value,
   });
   qs("#liveStatsMini")?.setStyle({ opacity: value });
+  qs("#threeStrikesUi")?.setStyle({ opacity: value });
+  qs("#threeStrikesCompletedWrapper")?.setStyle({ opacity: value });
 }
 
 function updateLiveStatsColor(value: TimerColor): void {
@@ -1665,21 +1667,35 @@ function updateLiveStatsColor(value: TimerColor): void {
   qs("#liveStatsMini")?.removeClass("timerText");
   qs("#liveStatsMini")?.removeClass("timerMain");
 
+  qs("#threeStrikesUi")?.removeClass("timerSub");
+  qs("#threeStrikesUi")?.removeClass("timerText");
+  qs("#threeStrikesUi")?.removeClass("timerMain");
+
+  qs("#threeStrikesCompletedWrapper")?.removeClass("timerSub");
+  qs("#threeStrikesCompletedWrapper")?.removeClass("timerText");
+  qs("#threeStrikesCompletedWrapper")?.removeClass("timerMain");
+
   if (value === "main") {
     qs("#barTimerProgress")?.addClass("timerMain");
     qs("#liveStatsTextTop")?.addClass("timerMain");
     qs("#liveStatsTextBottom")?.addClass("timerMain");
     qs("#liveStatsMini")?.addClass("timerMain");
+    qs("#threeStrikesUi")?.addClass("timerMain");
+    qs("#threeStrikesCompletedWrapper")?.addClass("timerMain");
   } else if (value === "sub") {
     qs("#barTimerProgress")?.addClass("timerSub");
     qs("#liveStatsTextTop")?.addClass("timerSub");
     qs("#liveStatsTextBottom")?.addClass("timerSub");
     qs("#liveStatsMini")?.addClass("timerSub");
+    qs("#threeStrikesUi")?.addClass("timerSub");
+    qs("#threeStrikesCompletedWrapper")?.addClass("timerSub");
   } else if (value === "text") {
     qs("#barTimerProgress")?.addClass("timerText");
     qs("#liveStatsTextTop")?.addClass("timerText");
     qs("#liveStatsTextBottom")?.addClass("timerText");
     qs("#liveStatsMini")?.addClass("timerText");
+    qs("#threeStrikesUi")?.addClass("timerText");
+    qs("#threeStrikesCompletedWrapper")?.addClass("timerText");
   }
 }
 
@@ -1690,9 +1706,33 @@ export function resetThreeStrikesUi(): void {
   if (!isThreeStrikes) {
     qs("#threeStrikesUi")?.addClass("hidden");
     qs(".threeStrikesCompleted")?.addClass("hidden");
+    qs("#threeStrikesStatsWrapper")?.setStyle({
+      marginBottom: "",
+      display: "",
+      gridTemplateColumns: "",
+      alignItems: "",
+    });
+    qs("#liveStatsMini")?.setStyle({
+      marginTop: "",
+      height: "",
+      width: "",
+      alignItems: "",
+    });
   } else {
     qs("#threeStrikesUi")?.removeClass("hidden");
     qs(".threeStrikesCompleted")?.removeClass("hidden");
+    qs("#threeStrikesStatsWrapper")?.setStyle({
+      marginBottom: "20px",
+      display: "grid",
+      gridTemplateColumns: "1fr auto 1fr",
+      alignItems: "end",
+    });
+    qs("#liveStatsMini")?.setStyle({
+      marginTop: "0px",
+      height: "auto",
+      width: "auto",
+      alignItems: "end",
+    });
     updateThreeStrikesUi();
   }
 }
